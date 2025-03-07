@@ -79,7 +79,7 @@ function calculateCompatibility() {
         4  /* agree for question 5 */
     ];
 
-    const MAX_SCORE = 5;
+    const MAX_SCORE = 5; // Max score for each individual question.
 
     // Get the current values of the dropdown controls.
     let question1Response = logQuestionResponse("q1", 1);
@@ -88,29 +88,33 @@ function calculateCompatibility() {
     let question4Response = logQuestionResponse("q4", 4);
     let question5Response = logQuestionResponse("q5", 5);
 
-    // Calculate compatibility scores.
+    // Calculate individual compatibility scores.
     let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0]);
     let question2Compatibility = 5 - Math.abs(question2Response - DESIRED_RESPONSE[1]);
     let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2]);
     let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3]);
     let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4]);
 
+    // Log compatibility scores for debugging.
     console.log("c1=" + question1Compatibility);
     console.log("c2=" + question2Compatibility);
     console.log("c3=" + question3Compatibility);
     console.log("c4=" + question4Compatibility);
     console.log("c5=" + question5Compatibility);
 
-    // Calculate total compatibility.
+    // Calculate total compatibility (sum of individual compatibility scores).
     let totalCompatibility = question1Compatibility + question2Compatibility + question3Compatibility + question4Compatibility + question5Compatibility;
 
-    // Convert totalCompatibility to a percentage.
-    totalCompatibility *= 100 / MAX_SCORE;
+    // Convert total compatibility to a percentage out of 100.
+    // Since MAX_SCORE is 5 for each question, the total max score is 5 * 5 = 25.
+    totalCompatibility = (totalCompatibility / (MAX_SCORE * 5)) * 100;
+
+    // Round the total compatibility score.
     totalCompatibility = Math.round(totalCompatibility);
+
+    // Log the total compatibility percentage for debugging.
     console.log("tc=" + totalCompatibility);
 
-    document.getElementById("compatibility").innerHTML = "Your compatibility is: " + totalCompatibility;
+    // Display the final compatibility score as a percentage.
+    document.getElementById("compatibility").innerHTML = "Your compatibility is: " + totalCompatibility + "%";
 }
-</script>
-</body>
-</html>
