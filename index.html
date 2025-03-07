@@ -54,6 +54,51 @@
         <option value="1">Strongly Disagree</option>
     </select><br /><br /><br />
 
+	<label>Loud noises are the best</label><br />
+    <select id="q6">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neither agree nor disagree</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select><br /><br />
+
+	<label>Swimming is the worst</label><br />
+    <select id="q7">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neither agree nor disagree</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select><br /><br />
+
+	<label>The best season is winter</label><br />
+    <select id="q8">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neither agree nor disagree</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select><br /><br />
+
+	<label>cats are better than dogs</label><br />
+    <select id="q9">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neither agree nor disagree</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select><br /><br />
+
+	<label>I am a picky eater or picky in general</label><br />
+    <select id="q10">
+        <option value="5">Strongly Agree</option>
+        <option value="4">Agree</option>
+        <option value="3">Neither agree nor disagree</option>
+        <option value="2">Disagree</option>
+        <option value="1">Strongly Disagree</option>
+    </select><br /><br />
+
     <button onclick="calculateCompatibility()">Calculate Compatibility</button>
     <p id="compatibility"></p>
 
@@ -76,7 +121,13 @@ function calculateCompatibility() {
         5, /* disagree for question 2 */
         4, /* strongly disagree for question 3 */
         1, /* strongly disagree for question 4 */
-        4  /* agree for question 5 */
+        4,  /* agree for question 5 */
+		1,
+		2,
+		4,
+		3,
+		1
+
     ];
 
     const MAX_SCORE = 5; // Max score for each individual question.
@@ -87,6 +138,11 @@ function calculateCompatibility() {
     let question3Response = logQuestionResponse("q3", 3);
     let question4Response = logQuestionResponse("q4", 4);
     let question5Response = logQuestionResponse("q5", 5);
+	let question6Response = logQuestionResponse("q6", 6);
+	let question7Response = logQuestionResponse("q7", 7);
+	let question8Response = logQuestionResponse("q8", 8);
+	let question9Response = logQuestionResponse("q9", 9);
+	let question10Response = logQuestionResponse("q10", 10);
 
     // Calculate individual compatibility scores.
     let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0]);
@@ -94,6 +150,12 @@ function calculateCompatibility() {
     let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2]);
     let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3]);
     let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4]);
+	let question6Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[5]);
+	let question7Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[6]);
+	let question8Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[7]);
+	let question9Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[9]);
+	let question10Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[10]);
+	
 
     // Log compatibility scores for debugging.
     console.log("c1=" + question1Compatibility);
@@ -101,9 +163,15 @@ function calculateCompatibility() {
     console.log("c3=" + question3Compatibility);
     console.log("c4=" + question4Compatibility);
     console.log("c5=" + question5Compatibility);
+	console.log("c6=" + question6Compatibility);
+	console.log("c7=" + question7Compatibility);
+	console.log("c8=" + question8Compatibility);
+	console.log("c9=" + question9Compatibility);
+	console.log("c10=" + question10Compatibility);
 
     // Calculate total compatibility (sum of individual compatibility scores).
-    let totalCompatibility = question1Compatibility + question2Compatibility + question3Compatibility + question4Compatibility + question5Compatibility;
+    let totalCompatibility = question1Compatibility + question2Compatibility + question3Compatibility + question4Compatibility + question5Compatibility + 
+	question6Compatibility + question7Compatibility + question8Compatibility + question9Compatibility + question10Compatibility;
 
     // Convert total compatibility to a percentage out of 100.
     // Since MAX_SCORE is 5 for each question, the total max score is 5 * 5 = 25.
