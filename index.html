@@ -26,7 +26,6 @@
             position: relative;
         }
 
-        /* Retro border style with black, darker green, and darker red */
         .container::before {
             content: '';
             position: absolute;
@@ -93,17 +92,22 @@
             font-weight: bold;
             color: #4CAF50;
         }
+
+        .question-summary {
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Humberto's Huzz Finder Exam</h1>
-        <p>Respond with the most appropriate response as possible. Lying will have serious consequences. The point of this site is to find a partner that fits similar characteristics to Humberto. Please try to respond as honestly as possible and even if you score a low compatibility, just know we can still be friends!!</p>
+        <p>Respond with the most appropriate response as possible. Lying will have serious consequences. The point of this site is to find a partner that fits similar characteristics to Humberto. Please try to respond as honestly as possible, and even if you score a low compatibility, just know we can still be friends!!</p>
 
         <!-- List of questions -->
         <label>Cars are cool!</label><br />
-        <select id="q1">
+        <select id="q1" class="question">
             <option value="5">Strongly Agree</option>
             <option value="4">Agree</option>
             <option value="3">Neither agree nor disagree</option>
@@ -112,7 +116,7 @@
         </select><br /><br />
 
         <label>Cats are better than dogs.</label><br />
-        <select id="q2">
+        <select id="q2" class="question">
             <option value="5">Strongly Agree</option>
             <option value="4">Agree</option>
             <option value="3">Neither agree nor disagree</option>
@@ -121,7 +125,7 @@
         </select><br /><br />
 
         <label>Adrenaline is something that's worth chasing</label><br />
-        <select id="q3">
+        <select id="q3" class="question">
             <option value="5">Strongly Agree</option>
             <option value="4">Agree</option>
             <option value="3">Neither agree nor disagree</option>
@@ -130,7 +134,7 @@
         </select><br /><br />
 
         <label>Music is the worst</label><br />
-        <select id="q4">
+        <select id="q4" class="question">
             <option value="5">Strongly Agree</option>
             <option value="4">Agree</option>
             <option value="3">Neither agree nor disagree</option>
@@ -139,7 +143,7 @@
         </select><br /><br />
 
         <label>Hygiene is not that important</label><br />
-        <select id="q5">
+        <select id="q5" class="question">
             <option value="5">Strongly Agree</option>
             <option value="4">Agree</option>
             <option value="3">Neither agree nor disagree</option>
@@ -152,42 +156,59 @@
         <input type="range" id="openness" name="openness" min="1" max="100" value="50"><br />
         <span id="openness-value">50</span><br /><br />
         
-        <button onclick="calculateCompatibility()">Calculate Compatibility</button>
+        <button onclick="validate()">Calculate Compatibility</button>
         <p id="compatibility"></p>
+
+        <div id="question-summary" class="question-summary"></div>
     </div>
 
     <script>
+        // Constants
         const DESIRED_RESPONSE = [5, 5, 4, 1, 2];  // Desired responses for the questions
         const MAX_SCORE = 5;  // Max score for each individual question (since 5 options are provided)
+        const QUESTIONS = 5;  // Number of questions
 
-        // Calculate compatibility based on user responses
-        function calculateCompatibility() {
+        // Validate user input and calculate compatibility
+        function validate() {
             let totalCompatibility = 0;
-
+            let allValid = true;
+            let summaryText = '';
+            
             // Loop through each question (q1 to q5)
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= QUESTIONS; i++) {
                 let response = parseInt(document.getElementById(`q${i}`).value); // Get response for each question
+                if (isNaN(response)) {
+                    alert("Please answer all questions before submitting.");
+                    allValid = false;
+                    break;
+                }
+                
+                // Calculate compatibility score for each question
                 let compatibility = MAX_SCORE - Math.abs(response - DESIRED_RESPONSE[i - 1]);
                 totalCompatibility += compatibility;  // Sum compatibility
+                summaryText += `Question ${i} Compatibility: ${compatibility} / ${MAX_SCORE}<br />`;
             }
+            
+            if (!allValid) return;
 
             // Get the value from the sliding bar (openness to change)
             let openness = parseInt(document.getElementById("openness").value);
-
+            
             // Adjust the openness score's weight (reduce the slider's influence)
             totalCompatibility += (openness / 10); // Reduced influence
 
             // Calculate percentage based on a maximum of (25 from questions + 10 from openness) = 35 total possible points
-            let percentage = Math.round((totalCompatibility / 35) * 100); 
+            let percentage = Math.round((totalCompatibility / 35) * 100);
 
             // Provide feedback based on compatibility score
             let feedback = '';
-            if (percentage >= 80) feedback = "True love";
-            else if (percentage >= 50) feedback = "Friends";
-            else feedback = "Run away!";
+            if (percentage >= 80) feedback = "Excellent Compatibility!";
+            else if (percentage >= 50) feedback = "Moderate Compatibility.";
+            else feedback = "Low Compatibility. You may need to rethink some answers.";
 
-            // Display result
-            document.getElementById("compatibility").innerHTML = `Your compatibility is: ${percentage}% - ${feedback}`;
+            // Display question compatibility summary and overall result
+            document.getElementById("question-summary").innerHTML = summaryText;
+            document.getElementById("compatibility").innerHTML = `Your overall compatibility is: ${percentage}% - ${feedback}`;
         }
 
         // Update the displayed value of the sliding bar
