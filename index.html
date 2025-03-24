@@ -81,10 +81,10 @@ function calculateCompatibility() {
     let openness = parseInt(document.getElementById("openness").value);
 
     // Adjust the openness score's weight (reduce the slider's influence)
-    totalCompatibility += (openness / 4); // This makes the slider contribute less to the total score
+    totalCompatibility += (openness / 5); // This makes the slider contribute less to the total score
 
-    // Calculate percentage based on a maximum of (25 from questions + 25 from openness) = 50 total possible points
-    let percentage = Math.round((totalCompatibility / 50) * 100); 
+    // Calculate percentage based on a maximum of (25 from questions + 25 from openness) = 45 total possible points
+    let percentage = Math.round((totalCompatibility / 45) * 100); 
 
     // Provide feedback based on compatibility score
     let feedback = '';
