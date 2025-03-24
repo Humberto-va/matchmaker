@@ -34,8 +34,7 @@
             left: -10px;
             right: -10px;
             bottom: -10px;
-            background: linear-gradient(45deg, #000000, #00ff00, #ff0000);
-            background-size: 400% 400%;
+            background: linear-gradient(45deg, #000000, #00ff00, #ff0000, #00ff00, #ff0000);
             border-radius: 20px;
             z-index: -1;
             animation: borderAnimation 5s ease infinite;
@@ -44,7 +43,9 @@
 
         @keyframes borderAnimation {
             0% { background-position: 0 0; }
-            50% { background-position: 100% 100%; }
+            25% { background-position: 100% 100%; }
+            50% { background-position: 0 0; }
+            75% { background-position: 100% 100%; }
             100% { background-position: 0 0; }
         }
 
