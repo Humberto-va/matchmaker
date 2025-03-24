@@ -80,11 +80,11 @@ function calculateCompatibility() {
     // Get the value from the sliding bar (openness to change)
     let openness = parseInt(document.getElementById("openness").value);
 
-    // Add the openness score to the total compatibility (you can modify this weight as needed)
-    totalCompatibility += openness / 10; // Dividing by 10 to keep it reasonable within the scale.
+    // Adjust the openness score's weight in the total calculation
+    totalCompatibility += (openness / 2); // This gives more influence to openness (now it can go up to 50 points)
 
-    // Convert total compatibility to a percentage out of 100
-    let percentage = Math.round((totalCompatibility / (MAX_SCORE * 5 + 100)) * 100); // Adjust for openness score
+    // Calculate percentage based on a maximum of (25 from questions + 50 from openness) = 75 total possible points
+    let percentage = Math.round((totalCompatibility / 75) * 100); 
 
     // Provide feedback based on compatibility score
     let feedback = '';
