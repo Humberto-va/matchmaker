@@ -3,104 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <title>Matchmaker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 700px;
+            position: relative;
+        }
+
+        /* Retro border style */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff005d, #00ffff, #ff00f7, #ff5b00);
+            background-size: 400% 400%;
+            border-radius: 20px;
+            z-index: -1;
+            animation: borderAnimation 5s ease infinite;
+            padding: 10px;
+        }
+
+        @keyframes borderAnimation {
+            0% { background-position: 0 0; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0 0; }
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        select, input[type="range"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+            font-size: 1em;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.1em;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+
+        #compatibility {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+    </style>
 </head>
 <body>
-    <h1>Humberto's Huzz Finder Exam</h1>
-    <p>Respond with the most appropriate response as possible. Lying will have serious consequences. The point of this site is to find a partner that fits similar characteristics to Humberto. Please try to respond as honestly as possible and even if you score a low compatibility, just know we can still be friends!!</p>
 
-    <!-- List of questions -->
-    <label>Cars are cool!</label><br />
-    <select id="q1">
-        <option value="5">Strongly Agree</option>
-        <option value="4">Agree</option>
-        <option value="3">Neither agree nor disagree</option>
-        <option value="2">Disagree</option>
-        <option value="1">Strongly Disagree</option>
-    </select><br /><br />
+    <div class="container">
+        <h1>Humberto's Huzz Finder Exam</h1>
+        <p>Respond with the most appropriate response as possible. Lying will have serious consequences. The point of this site is to find a partner that fits similar characteristics to Humberto. Please try to respond as honestly as possible and even if you score a low compatibility, just know we can still be friends!!</p>
 
-    <label>Cats are better than dogs.</label><br />
-    <select id="q2">
-        <option value="5">Strongly Agree</option>
-        <option value="4">Agree</option>
-        <option value="3">Neither agree nor disagree</option>
-        <option value="2">Disagree</option>
-        <option value="1">Strongly Disagree</option>
-    </select><br /><br />
+        <!-- List of questions -->
+        <label>Cars are cool!</label><br />
+        <select id="q1">
+            <option value="5">Strongly Agree</option>
+            <option value="4">Agree</option>
+            <option value="3">Neither agree nor disagree</option>
+            <option value="2">Disagree</option>
+            <option value="1">Strongly Disagree</option>
+        </select><br /><br />
 
-    <label>Adrenaline is something that's worth chasing</label><br />
-    <select id="q3">
-        <option value="5">Strongly Agree</option>
-        <option value="4">Agree</option>
-        <option value="3">Neither agree nor disagree</option>
-        <option value="2">Disagree</option>
-        <option value="1">Strongly Disagree</option>
-    </select><br /><br />
+        <label>Cats are better than dogs.</label><br />
+        <select id="q2">
+            <option value="5">Strongly Agree</option>
+            <option value="4">Agree</option>
+            <option value="3">Neither agree nor disagree</option>
+            <option value="2">Disagree</option>
+            <option value="1">Strongly Disagree</option>
+        </select><br /><br />
 
-    <label>Music is the worst</label><br />
-    <select id="q4">
-        <option value="5">Strongly Agree</option>
-        <option value="4">Agree</option>
-        <option value="3">Neither agree nor disagree</option>
-        <option value="2">Disagree</option>
-        <option value="1">Strongly Disagree</option>
-    </select><br /><br />
+        <label>Adrenaline is something that's worth chasing</label><br />
+        <select id="q3">
+            <option value="5">Strongly Agree</option>
+            <option value="4">Agree</option>
+            <option value="3">Neither agree nor disagree</option>
+            <option value="2">Disagree</option>
+            <option value="1">Strongly Disagree</option>
+        </select><br /><br />
 
-    <label>Hygiene is not that important</label><br />
-    <select id="q5">
-        <option value="5">Strongly Agree</option>
-        <option value="4">Agree</option>
-        <option value="3">Neither agree nor disagree</option>
-        <option value="2">Disagree</option>
-        <option value="1">Strongly Disagree</option>
-    </select><br /><br />
-    
-    <!-- New sliding bar for openness to listening and change -->
-    <label for="openness">1-100, what would you say is your mindset in how open you are to listening and change?</label><br />
-    <input type="range" id="openness" name="openness" min="1" max="100" value="50"><br />
-    <span id="openness-value">50</span><br /><br />
-    
-    <button onclick="calculateCompatibility()">Calculate Compatibility</button>
-    <p id="compatibility"></p>
+        <label>Music is the worst</label><br />
+        <select id="q4">
+            <option value="5">Strongly Agree</option>
+            <option value="4">Agree</option>
+            <option value="3">Neither agree nor disagree</option>
+            <option value="2">Disagree</option>
+            <option value="1">Strongly Disagree</option>
+        </select><br /><br />
 
-<script>
-const DESIRED_RESPONSE = [5, 5, 4, 1, 2];  // Desired responses for the questions
-const MAX_SCORE = 5;  // Max score for each individual question (since 5 options are provided)
+        <label>Hygiene is not that important</label><br />
+        <select id="q5">
+            <option value="5">Strongly Agree</option>
+            <option value="4">Agree</option>
+            <option value="3">Neither agree nor disagree</option>
+            <option value="2">Disagree</option>
+            <option value="1">Strongly Disagree</option>
+        </select><br /><br />
+        
+        <!-- New sliding bar for openness to listening and change -->
+        <label for="openness">1-100, what would you say is your mindset in how open you are to listening and change?</label><br />
+        <input type="range" id="openness" name="openness" min="1" max="100" value="50"><br />
+        <span id="openness-value">50</span><br /><br />
+        
+        <button onclick="calculateCompatibility()">Calculate Compatibility</button>
+        <p id="compatibility"></p>
+    </div>
 
-// Calculate compatibility based on user responses
-function calculateCompatibility() {
-    let totalCompatibility = 0;
+    <script>
+        const DESIRED_RESPONSE = [5, 5, 4, 1, 2];  // Desired responses for the questions
+        const MAX_SCORE = 5;  // Max score for each individual question (since 5 options are provided)
 
-    // Loop through each question (q1 to q5)
-    for (let i = 1; i <= 5; i++) {
-        let response = parseInt(document.getElementById(`q${i}`).value); // Get response for each question
-        let compatibility = MAX_SCORE - Math.abs(response - DESIRED_RESPONSE[i - 1]);
-        totalCompatibility += compatibility;  // Sum compatibility
-    }
+        // Calculate compatibility based on user responses
+        function calculateCompatibility() {
+            let totalCompatibility = 0;
 
-    // Get the value from the sliding bar (openness to change)
-    let openness = parseInt(document.getElementById("openness").value);
+            // Loop through each question (q1 to q5)
+            for (let i = 1; i <= 5; i++) {
+                let response = parseInt(document.getElementById(`q${i}`).value); // Get response for each question
+                let compatibility = MAX_SCORE - Math.abs(response - DESIRED_RESPONSE[i - 1]);
+                totalCompatibility += compatibility;  // Sum compatibility
+            }
 
-    // Adjust the openness score's weight (reduce the slider's influence)
-    totalCompatibility += (openness / 5); // This makes the slider contribute less to the total score
+            // Get the value from the sliding bar (openness to change)
+            let openness = parseInt(document.getElementById("openness").value);
 
-    // Calculate percentage based on a maximum of (25 from questions + 25 from openness) = 45 total possible points
-    let percentage = Math.round((totalCompatibility / 45) * 100); 
+            // Adjust the openness score's weight (reduce the slider's influence)
+            totalCompatibility += (openness / 10); // Reduced influence
 
-    // Provide feedback based on compatibility score
-    let feedback = '';
-    if (percentage >= 80) feedback = "Excellent Compatibility!";
-    else if (percentage >= 50) feedback = "Moderate Compatibility.";
-    else feedback = "Low Compatibility. You may need to rethink some answers.";
+            // Calculate percentage based on a maximum of (25 from questions + 10 from openness) = 35 total possible points
+            let percentage = Math.round((totalCompatibility / 35) * 100); 
 
-    // Display result
-    document.getElementById("compatibility").innerHTML = `Your compatibility is: ${percentage}% - ${feedback}`;
-}
+            // Provide feedback based on compatibility score
+            let feedback = '';
+            if (percentage >= 80) feedback = "Excellent Compatibility!";
+            else if (percentage >= 50) feedback = "Moderate Compatibility.";
+            else feedback = "Low Compatibility. You may need to rethink some answers.";
 
-// Update the displayed value of the sliding bar
-document.getElementById("openness").addEventListener("input", function() {
-    document.getElementById("openness-value").textContent = this.value;
-});
-</script>
+            // Display result
+            document.getElementById("compatibility").innerHTML = `Your compatibility is: ${percentage}% - ${feedback}`;
+        }
+
+        // Update the displayed value of the sliding bar
+        document.getElementById("openness").addEventListener("input", function() {
+            document.getElementById("openness-value").textContent = this.value;
+        });
+    </script>
 
 </body>
 </html>
