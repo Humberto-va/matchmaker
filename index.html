@@ -6,9 +6,7 @@
 </head>
 <body>
     <h1>Humberto's Huzz Finder Exam</h1>
-    <p>Respond with the most appropriate response as possible. Lying will have serious consequences. The point of this site is to find a partner that fits similar characterisics
-        to Humberto. Pleas try to respond as honeslty as possible and even if you score a low compatibilty just know we can still be friends!!
-    </p>
+    <p>Respond with the most appropriate response as possible. Lying will have serious consequences. The point of this site is to find a partner that fits similar characteristics to Humberto. Please try to respond as honestly as possible and even if you score a low compatibility, just know we can still be friends!!</p>
 
     <!-- List of questions -->
     <label>Cars are cool!</label><br />
@@ -29,7 +27,7 @@
         <option value="1">Strongly Disagree</option>
     </select><br /><br />
 
-    <label>Adrenaline is something thats worth chasing</label><br />
+    <label>Adrenaline is something that's worth chasing</label><br />
     <select id="q3">
         <option value="5">Strongly Agree</option>
         <option value="4">Agree</option>
@@ -56,27 +54,37 @@
         <option value="1">Strongly Disagree</option>
     </select><br /><br />
     
-    <!-- More questions here... (q2 to q5) -->
-
+    <!-- New sliding bar for openness to listening and change -->
+    <label for="openness">1-100, what would you say is your mindset in how open you are to listening and change?</label><br />
+    <input type="range" id="openness" name="openness" min="1" max="100" value="50"><br />
+    <span id="openness-value">50</span><br /><br />
+    
     <button onclick="calculateCompatibility()">Calculate Compatibility</button>
     <p id="compatibility"></p>
 
 <script>
-const DESIRED_RESPONSE = [5, 5, 4, 1, 2,];  // Desired responses for the questions
-const MAX_SCORE = 10;  // Max score for each individual question.
+const DESIRED_RESPONSE = [5, 5, 4, 1, 2];  // Desired responses for the questions
+const MAX_SCORE = 5;  // Max score for each individual question (since 5 options are provided)
 
+// Calculate compatibility based on user responses
 function calculateCompatibility() {
     let totalCompatibility = 0;
 
-    // Loop through each question (q1 to q10)
+    // Loop through each question (q1 to q5)
     for (let i = 1; i <= 5; i++) {
         let response = parseInt(document.getElementById(`q${i}`).value); // Get response for each question
         let compatibility = MAX_SCORE - Math.abs(response - DESIRED_RESPONSE[i - 1]);
         totalCompatibility += compatibility;  // Sum compatibility
     }
 
+    // Get the value from the sliding bar (openness to change)
+    let openness = parseInt(document.getElementById("openness").value);
+
+    // Add the openness score to the total compatibility (you can modify this weight as needed)
+    totalCompatibility += openness / 10; // Dividing by 10 to keep it reasonable within the scale.
+
     // Convert total compatibility to a percentage out of 100
-    let percentage = Math.round((totalCompatibility / (MAX_SCORE * 10)) * 100);
+    let percentage = Math.round((totalCompatibility / (MAX_SCORE * 5 + 100)) * 100); // Adjust for openness score
 
     // Provide feedback based on compatibility score
     let feedback = '';
@@ -87,6 +95,11 @@ function calculateCompatibility() {
     // Display result
     document.getElementById("compatibility").innerHTML = `Your compatibility is: ${percentage}% - ${feedback}`;
 }
+
+// Update the displayed value of the sliding bar
+document.getElementById("openness").addEventListener("input", function() {
+    document.getElementById("openness-value").textContent = this.value;
+});
 </script>
 
 </body>
